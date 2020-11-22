@@ -8,42 +8,46 @@
 #
 
 library(shiny)
+library(shinydashboard)
+library(leaflet)
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
-
-    # Application title
-    titlePanel("Old Faithful Geyser Data"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+ui <- fui <- dashboardPage(
+    dashboardHeader(title = "Street trees"),
+    
+    dashboardSidebar(
+        radioButtons("trees", "Number of trees",
+                     choices = list("18" = 1,
+                                    "35" = 2,
+                                    "79" = 3))
+    ),
+    
+    dashboardBody(
+        fluidRow(
+            
+            valueBoxOutput("treesBox"),
+            
+            valueBoxOutput("parkingspacesBox")
         ),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
+        
+        fluidRow(
+            
+            leafletOutput("map")
         )
     )
 )
 
-# Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    
+    #output$treesBox <- renderValueBox()
+    
+    #output$parkingspacesBox <- renderValueBox()
+    
+    output$map <- renderLeaflet({
+        leaflet() %>% 
+            addTiles() %>% 
+            setView(-0.94680369, 51.456922, zoom = 16)
     })
 }
 
-# Run the application 
-shinyApp(ui = ui, server = server)
+shinyApp(ui, server)
