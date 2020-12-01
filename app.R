@@ -10,16 +10,19 @@
 library(shiny)
 library(shinydashboard)
 library(leaflet)
+library(readr)
+
+street_trees <- read_csv("street_trees.csv")
 
 # Define UI for application that draws a histogram
 ui <- fui <- dashboardPage(
     dashboardHeader(title = "Street trees"),
     
     dashboardSidebar(
-        radioButtons("trees", "Number of trees",
-                     choices = list("18" = 1,
-                                    "35" = 2,
-                                    "79" = 3))
+        radioButtons("centre", "Distance between trees (m)",
+                     choices = list("7" = 1,
+                                    "14" = 2,
+                                    "28" = 3))
     ),
     
     dashboardBody(
@@ -46,7 +49,8 @@ server <- function(input, output) {
     output$map <- renderLeaflet({
         leaflet() %>% 
             addTiles() %>% 
-            setView(-0.94680369, 51.456922, zoom = 16)
+            setView(-0.94680369, 51.456922, zoom = 16) %>% 
+            addCircleMarkers(lat = ~y, lng = ~x, data = street_trees, radius = 1, color = "green")
     })
 }
 
