@@ -1,0 +1,8 @@
+TODO
+
+- combine tree points into single file
+- label points withg centres (7, 14, 28m)
+- input these data as a csv and add lat long to csv for rendering by Leaflet (?)
+- tree count = valuebox
+- how to work out parking spaces? simple case_when statement? could work...
+- final thing is how to calc the benefits - this is the PRIORITY
