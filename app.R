@@ -52,6 +52,11 @@ server <- function(input, output, session) {
         dplyr::filter(street_trees, centres == input$centre)
     })
     
+    # sts <- eventReactive(input$centre, {
+    #     filter(street_trees, centres == input$centre) %>% 
+    #         summarise(`C sequestered` = sum(c), `PM10 absorbed` = sum(pm10))
+    # })
+    
     output$treesBox <- renderValueBox(
         valueBox(
         "Number of trees",
