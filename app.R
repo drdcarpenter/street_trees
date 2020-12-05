@@ -52,12 +52,13 @@ server <- function(input, output, session) {
         dplyr::filter(street_trees, centres == input$centre)
     })
     
-    # output$treesBox <- renderValueBox(
-    #     valueBox(
-    #     "Number of trees",
-    #     count(st()),
-    #     icon = icon("tree"))
-    # )
+    output$treesBox <- renderValueBox(
+        valueBox(
+        "Number of trees",
+        count(st()),
+        icon = icon("tree"),
+        color = "green")
+    )
     
     #output$parkingspacesBox <- renderValueBox()
     
