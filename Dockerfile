@@ -26,3 +26,5 @@ COPY street_trees.csv /srv/shiny-server/street_trees/
 
 RUN sudo rm /srv/shiny-server/index.html
 COPY index.html /srv/shiny-server/index.html
+COPY /index_files /srv/shiny-server/index_files/
+COPY dc_temp.jpg /srv/shiny-server/dc_temp.jpg
