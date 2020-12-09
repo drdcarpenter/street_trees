@@ -1,0 +1,25 @@
+---
+title: "Hello, I'm Dan Carpenter"
+image: "dc_temp.jpg"
+# links:
+#   - LinkedIn: "https://www.linkedin.com/in/dan-carpenter-cenv-057b512a/"
+#   - Twitter: "https://twitter.com/drdcarpenter"
+#   - GitHub: "https://github.com/drdcarpenter"
+output:
+  postcards::trestles
+---
+ 
+## About
+
+Dan Carpenter is an ecologist and environmental data scientist. I am interested in using environmental data to support evidence-based decision making. I think good data are the foundations of good decisions and much of my work is about turning good data into evidence to support those decisions.
+
+I have a BSc (Hons.) in Wildlife Conservation (University of East London) and a PhD in Soil Science (University of Reading). I have worked in academic research, local government, NGOs and the private sector. I am a Chartered Environmentalist (CEnv). For more on my background, please see my CV.
+
+I currently work for Ethos Environmental Planning Ltd where I put into practice the business of using data for decision making.
+
+I drink a LOT of tea. I love cricket.
+
+## My Apps
+
+Here are some apps I have made using Shiny and R.
+

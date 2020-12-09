@@ -29,6 +29,18 @@ write_csv(st, "street_trees.csv", append = FALSE)
 
 street_trees <- read_csv("street_trees.csv")
 
-sts <- street_trees %>% filter(centres == 7) %>% 
-  summarise(`total c` = sum(centres), total_d = sum(dbh))
+sts <- st %>% filter(centres == 28) %>% 
+  summarise(`Carbon stored (kg)` = sum(Carbon_Storage_kg), 
+            `Carbon Sequestration (kg/yr)` = sum(Carbon_Sequestration_kg_yr),
+            `Pollution Removed (g/yr)` = sum(Pollution_Removal_g_yr))
 sts
+
+# add pollution data
+tb <- read_csv("tree_benefits.csv")
+
+
+stb <- left_join(st, tb, by = c("Species" = "Species_Name"))
+stb
+glimpse(stb)
+
+write_csv(stb, "street_trees.csv")
