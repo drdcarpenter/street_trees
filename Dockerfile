@@ -22,9 +22,7 @@ RUN apt-get update && \
 # install R packages
 RUN R -e "install.packages('shinydashboard')"
 
-RUN R -e "install.packages(c('leaflet', 'readr', 'dplyr', 'DT'),
-                           dependencies=TRUE, 
-                           repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('leaflet', 'readr', 'dplyr', 'DT'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 # copy necessary files
 ## app folder
