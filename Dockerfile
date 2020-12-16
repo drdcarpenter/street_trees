@@ -19,6 +19,11 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get clean
 
+# install R packages
+RUN R -e "install.packages(c('shinydashboard', 'leaflet', 'readr', 'dplyr', 'DT'),
+                           dependencies=TRUE, 
+                           repos='http://cran.rstudio.com/')"
+
 # copy necessary files
 ## app folder
 COPY app.R /srv/shiny-server/street_trees/
