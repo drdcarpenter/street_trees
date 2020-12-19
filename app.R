@@ -58,14 +58,21 @@ ui <- fui <- dashboardPage(
         fluidRow(
             
             h2("Benefits of street trees"),
-            p("The table below shows how much carbon would be stored and sequestered, and how much pollution would be removed, by the number of trees shown in the 'tree' box above."),
+            p("The boxes below shows how much carbon would be stored and sequestered, and how much pollution would be removed, by the number of trees shown in the 'tree' box above."),
             
-            tableOutput("table")
+            # tableOutput("table"),
+            
+            valueBoxOutput("carbonstore"),
+            
+            valueBoxOutput("carbonsequestered"),
+            
+            valueBoxOutput("pollution")
+            
         ),
         
         fluidRow(
             
-            h3("Further information on this app and the calculations behind it can be found on my website.")
+            p("Further information on this app and the calculations behind it can be found on my website.")
         )
     )
 )
@@ -76,6 +83,7 @@ server <- function(input, output, session) {
         dplyr::filter(street_trees, centres == input$centre)
     })
     
+
     sts <- eventReactive(input$centre, {
         filter(street_trees, centres == input$centre) %>%
             summarise(`Carbon stored (kg)` = sum(Carbon_Storage_kg),
@@ -100,10 +108,36 @@ server <- function(input, output, session) {
             addCircleMarkers(lat = ~y, lng = ~x, data = st(), radius = 1, color = "green")
     })
     
-    output$table <- renderTable({sts()}, bordered = TRUE,  
-                                spacing = 'm',  
-                                width = '75%', align = 'l',  
-                                digits = 2)
+    # output$table <- renderTable({sts()}, bordered = TRUE,  
+    #                             spacing = 'm',  
+    #                             width = '75%', align = 'l',  
+    #                             digits = 2)
+    
+    output$carbonstore <- renderValueBox(
+        valueBox(
+            "Carbon stored (kg)",
+            sts()$`Carbon stored (kg)`,
+            icon = icon("leaf"),
+            color = "blue")
+    )
+    
+    output$carbonsequestered <- renderValueBox(
+        valueBox(
+            "Carbon sequestered (kg/yr)",
+            sts()$`Carbon Sequestered (kg/yr)`,
+            icon = icon("sun"),
+            color = "light-blue")
+    )
+    
+    output$pollution <- renderValueBox(
+        valueBox(
+            "Pollution removed (g/yr)",
+            sts()$`Pollution Removed (g/yr)`,
+            icon = icon("industry"),
+            color = "red")
+    )
+    
+    
 }
 
 shinyApp(ui, server)

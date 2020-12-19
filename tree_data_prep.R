@@ -29,11 +29,13 @@ write_csv(st, "street_trees.csv", append = FALSE)
 
 street_trees <- read_csv("street_trees.csv")
 
+st <- read_csv("street_trees.csv")
+
 sts <- st %>% filter(centres == 28) %>% 
   summarise(`Carbon stored (kg)` = sum(Carbon_Storage_kg), 
             `Carbon Sequestration (kg/yr)` = sum(Carbon_Sequestration_kg_yr),
             `Pollution Removed (g/yr)` = sum(Pollution_Removal_g_yr))
-sts
+sts$`Carbon stored (kg)`
 
 # add pollution data
 tb <- read_csv("tree_benefits.csv")
