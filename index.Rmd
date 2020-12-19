@@ -34,6 +34,10 @@ Here are some apps I have made using Shiny and R.
 
 </style>
 
-### Street tree app
-A Shiny application to explore the benefits we gain from street tree planting.
-<a href="/street_trees/" target="_blank"><button class="btn button2"><i class="fa fa-tree"></i> Street Tree app</button></a> 
+<table style="width:100%">
+  <tr>
+    <td><a href="/street_trees/" target="_blank"><button class="btn button2"><i class="fa fa-tree"></i> Street Trees app</button></a></td>
+    <td>A Shiny application to explore the benefits we gain from street tree planting.</td>
+  </tr>
+</table>
+
