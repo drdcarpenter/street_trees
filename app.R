@@ -17,10 +17,12 @@ library(DT)
 street_trees <- read_csv("street_trees.csv")
 
 # Define UI for application that draws a histogram
-ui <- fui <- dashboardPage(
+ui <- dashboardPage(
     dashboardHeader(title = "Street trees"),
     
     dashboardSidebar(
+        
+        actionButton(inputId='ab1', label="Apps Home", icon = icon("home"), onclick ="location.href='http://app-dan-carpenter.co.uk';"),
         
         h2("Instructions"),
         p("Use the drop down menu below to select the distance between street trees to be planted."),
@@ -41,7 +43,7 @@ ui <- fui <- dashboardPage(
             p("This app shows where those trees could be planted and the benefits they would provide to residents by sequestering and storing carbon and removing air pollution."),
             
             h2("Trees and parking"),
-            p("Planting trees in the street will use up some parking spaces.  The boxes below show how many trees and parking spaces would result from different planting distances."),
+            p("Planting trees in the street will use up some parking spaces.  There is approximately 995 metres of car parking space on the road.  A tree occupies 1.2 metres and a parking space 5 metres.  The boxes below show how many trees and parking spaces would result from different planting distances."),
             valueBoxOutput("treesBox"),
             
             valueBoxOutput("parkingspacesBox")
@@ -91,6 +93,14 @@ server <- function(input, output, session) {
                       `Pollution Removed (g/yr)` = sum(Pollution_Removal_g_yr))
     })
     
+    ps <- eventReactive(input$centre, {
+        case_when(
+            input$centre == 7 ~ 180,
+            input$centre == 14 ~ 190,
+            input$centre == 28 ~ 194
+        )
+    })
+    
     output$treesBox <- renderValueBox(
         valueBox(
         "Number of trees",
@@ -99,13 +109,19 @@ server <- function(input, output, session) {
         color = "green")
     )
     
-    #output$parkingspacesBox <- renderValueBox()
+   output$parkingspacesBox <- renderValueBox(
+       valueBox(
+           "Number of parking spaces",
+           ps(),
+           icon = icon("car"),
+           color = "orange"
+       ))
     
-    output$map <- renderLeaflet({
-        leaflet() %>%
+   output$map <- renderLeaflet({
+        leaflet(st()) %>%
             addTiles() %>%
             setView(-0.94680369, 51.456922, zoom = 16) %>%
-            addCircleMarkers(lat = ~y, lng = ~x, data = st(), radius = 1, color = "green")
+            addCircleMarkers(lat = ~y, lng = ~x, radius = 1, color = "green")
     })
     
     # output$table <- renderTable({sts()}, bordered = TRUE,  

@@ -46,3 +46,29 @@ stb
 glimpse(stb)
 
 write_csv(stb, "street_trees.csv")
+
+
+# parking spaces
+
+t <- 14
+
+ps <- case_when(
+  t == 7 ~ 180,
+  t == 14 ~ 190,
+  t == 28 ~ 194)
+ps
+
+# colour tree species
+
+st <- read_csv("street_trees.csv")
+
+st <- st %>% 
+  mutate(color = case_when(
+    Species == "Acer campestre" ~ "red",
+    Species == "Crataegus monogyna" ~ "green",
+    Species == "Prunus cerasifera" ~ "yellow",
+    Species == "Sorbus intermedia" ~ "blue"
+  ))
+glimpse(st)
+
+write_csv(st, "street_trees.csv")
