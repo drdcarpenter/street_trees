@@ -15,6 +15,7 @@ library(dplyr)
 library(DT)
 
 street_trees <- read_csv("street_trees.csv")
+pal <-colorFactor(topo.colors(4), st$Species)
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
@@ -121,7 +122,8 @@ server <- function(input, output, session) {
         leaflet(st()) %>%
             addTiles() %>%
             setView(-0.94680369, 51.456922, zoom = 16) %>%
-            addCircleMarkers(lat = ~y, lng = ~x, radius = 1, color = "green")
+            addCircleMarkers(lat = ~y, lng = ~x, radius = 1, color = ~pal(Species)) %>% 
+           addLegend(position = "topright", pal = pal, values = st()$Species, title = "Tree species")
     })
     
     # output$table <- renderTable({sts()}, bordered = TRUE,  
