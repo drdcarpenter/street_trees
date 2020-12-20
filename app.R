@@ -15,7 +15,7 @@ library(dplyr)
 library(DT)
 
 street_trees <- read_csv("street_trees.csv")
-pal <-colorFactor(topo.colors(4), st$Species)
+pal <-colorFactor(topo.colors(4), street_trees$Species)
 
 # Define UI for application that draws a histogram
 ui <- dashboardPage(
